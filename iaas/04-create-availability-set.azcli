@@ -1,0 +1,7 @@
+# availability sets for HA
+# vm cannot add into an availability-set later!
+az vm availability-set create \
+    --resource-group api \
+    --name product-service \
+    --platform-fault-domain-count 2 \
+    --platform-update-domain-count 2
