@@ -27,12 +27,11 @@ az vm open-port --port 8080 --resource-group template --name product-service
 #ssh -i .pem ADMIN_USER_NAME@PUBLIC_IP
 # ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
 
-
+# you can use cloud-init or below run-command
 az vm run-command invoke \
     -g template \
     -n product-service \
     --command-id RunShellScript --scripts "sudo apt update && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cd git-sandbox && ./gradlew bootRun"
-
 
 
 echo 'app is up'
