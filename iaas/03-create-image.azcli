@@ -1,0 +1,10 @@
+#create image from template
+az vm deallocate -g template -n product-service
+az vm generalize -g template -n product-service
+
+az image create \
+    -g template \
+    -n product-service-image \
+    --source product-service
+
+# goto Images on UI to see it
