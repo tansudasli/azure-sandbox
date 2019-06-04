@@ -22,10 +22,6 @@ az vm disk attach \
 # open ports
 az vm open-port --port 8080 --resource-group template --name product-service
 
-#connect to instance
-#enter .pem file password 
-#ssh -i .pem ADMIN_USER_NAME@PUBLIC_IP
-# ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
 
 # you can use cloud-init or below run-command
 az vm run-command invoke \
@@ -34,13 +30,11 @@ az vm run-command invoke \
     --command-id RunShellScript --scripts "sudo apt update && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cd git-sandbox && ./gradlew bootRun"
 
 
-echo 'app is up'
-
-# setup (run inside instance!)
-# sudo apt update
-# sudo apt install -y openjdk-8-jdk
-# git clone https://github.com/tansudasli/git-sandbox.git
-# ./git-sandbox/gradlew bootRun &
 
 # test rest-api
-# curl 13.74.157.26:8080
+curl `az vm show -d -g template -n product-service --query publicIps -o tsv`:8080
+
+#connect to instance
+#enter .pem file password 
+#ssh -i .pem ADMIN_USER_NAME@PUBLIC_IP
+# ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
