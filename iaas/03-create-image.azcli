@@ -8,3 +8,7 @@ az image create \
     --source product-service
 
 # goto Images on UI to see it
+# to get image_id, run `az image show  -g template -n product-service-image --query id  -o tsv`
+
+# now we can stop, template vm
+az vm stop -g template -n product-service
