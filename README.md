@@ -1,6 +1,6 @@
 # azure-sandbox
 
-Architectural approaches to core cloud concepts in azure
+Architectural approaches to core cloud concepts in azure. For the sake of clearity, I will focus on api layer for product-services, while i highlight high level design.
 
 - [x] /doc : architecture design document
 - [x] /iaas : implementation scripts for traditional IaaS in cloud
@@ -18,3 +18,10 @@ Architectural approaches to core cloud concepts in azure
 ## High Level Architecture - IaaS
 
 ![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas/Azure%20Architecture.png)
+
+## For a winning strategy
+
+an organization should, at least, dockerize their new applications and use **Kubernates** for cluster management.
+
+- Then, later you can give them serverless capability.
+- Then, you can dockerize old legacy applications, and go on.
