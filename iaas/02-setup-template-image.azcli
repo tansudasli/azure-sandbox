@@ -24,6 +24,8 @@ az vm open-port --port 8080 --resource-group template --name product-service
 
 
 # you can use cloud-init or below run-command
+# sudo find / -name git-sandbox 
+# /var/lib/waagent/run-command/download/0/git-sandbox
 az vm run-command invoke \
     -g template \
     -n product-service \
