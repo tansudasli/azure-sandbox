@@ -1,10 +1,8 @@
-# prepare template server
+# delete all resources
 
-# create server
 az group create --name template --location northeurope
 az group create --name api --location northeurope
 az group create --name web --location northeurope
 az group create --name analytics --location northeurope
 az group create --name db --location northeurope
 az group create --name cache --location northeurope
-
