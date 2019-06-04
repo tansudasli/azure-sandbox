@@ -21,8 +21,8 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
 5. Create ssh public keys instead of using password in ssh connection **Mac OS** or **Windows Sublinux**.
    - `ssh-keygen -f ~/azure.pem`
    - `cp ~/azure.* .`
-6. to start
-   - for IaaS, start to run azure scrapbooks under /iaas folder
+6. to get into action
+   - for **IaaS**, start to run *azure scrapbooks* under `/iaas` folder
 
 ## High Level Architecture - IaaS
 
