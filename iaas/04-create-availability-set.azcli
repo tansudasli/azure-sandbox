@@ -1,5 +1,5 @@
 # availability sets for HA
-# vm cannot add into an availability-set later!
+# vm cannot add into an availability-set later! So you have to create that vm again w/ avalilability-set
 az vm availability-set create \
     --resource-group api \
     --name product-service \
