@@ -11,7 +11,8 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
    - or use `https://chocolatey.org/` for **Windows**
 2. Install IDE w/ `brew cask install visual-studio-code`
    - then, install azure cli addon for `.azcli` files
-   - to run azure scrapbooks, use`sh iaas/01-preparations.azcli`
+   - to run azure scrapbooks, use`sh iaas/01-preparations.azcli` or `./iaas/01-preparations.azcli`
+      - if you get permission denied message, run `chmod +x 01-preparations.azcli`, then try again.
 3. Get code w/ `git clone https://github.com/tansudasli/azure-sandbox.git`
    - then, `cd azure-sandbox` if you need.
 4. Install azure cli w/ `brew install azure-cli`
