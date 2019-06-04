@@ -2,7 +2,7 @@
 
 Architectural approaches to core cloud concepts in azure. For the sake of clearity, I will focus on api layer for product-services, while i highlight high level design.
 
-- [x] /doc : architecture design document
+- [x] /doc : architecture design document and agenda
 - [x] /iaas : implementation scripts for traditional IaaS in cloud
 
 ## How to Start
@@ -17,9 +17,12 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
    - then, `cd azure-sandbox` if you need.
 4. Install azure cli w/ `brew install azure-cli`
    - then, configure w/ `az login`
+      - If you don't have azure account, create one.
 5. Create ssh public keys instead of using password in ssh connection **Mac OS** or **Windows Sublinux**.
    - `ssh-keygen -f ~/azure.pem`
    - `cp ~/azure.* .`
+6. to start
+   - for IaaS, start to run azure scrapbooks under /iaas folder
 
 ## High Level Architecture - IaaS
 
