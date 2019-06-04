@@ -13,8 +13,12 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
    - then, install azure cli addon for `.azcli` files
    - to run azure scrapbooks, use`sh iaas/01-preparations.azcli`
 3. Get code w/ `git clone https://github.com/tansudasli/azure-sandbox.git`
+   - then, `cd azure-sandbox` if you need.
 4. Install azure cli w/ `brew install azure-cli`
    - then, configure w/ `az login`
+5. Create ssh public keys instead of using password in ssh connection **Mac OS** or **Windows Sublinux**.
+   - `ssh-keygen -f ~/azure.pem`
+   - `cp ~/azure.* .`
 
 ## High Level Architecture - IaaS
 
