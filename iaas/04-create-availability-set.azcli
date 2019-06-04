@@ -1,4 +1,4 @@
-# availability sets for HA
+# availability sets for HA w/ physical server etc.
 # vm cannot add into an availability-set later! So you have to create that vm again w/ avalilability-set
 az vm availability-set create \
     --resource-group api \
