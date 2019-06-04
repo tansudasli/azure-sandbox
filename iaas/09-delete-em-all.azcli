@@ -1,0 +1,6 @@
+az group delete --name template --no-wait --yes 
+az group delete --name api --no-wait --yes       
+az group delete --name web --no-wait --yes 
+az group delete --name analytics --no-wait --yes
+az group delete --name db --no-wait --yes 
+az group delete --name cache --no-wait --yes
