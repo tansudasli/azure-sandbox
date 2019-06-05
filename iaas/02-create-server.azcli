@@ -9,6 +9,7 @@ az vm create \
     --ssh-key-value azure.pem.pub
 
 # add a separate disk for data 
+# you get a correlation error, if you run this script more than one. So, clear `--new` or change `--disk` name
 az vm disk attach \
     --resource-group template \
     --vm-name product-service \
