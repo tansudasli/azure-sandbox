@@ -1,0 +1,48 @@
+# prepare template server which contains
+# ubuntuserver + jdk8 + spring-rest-api app
+
+az vm create \
+    --resource-group template \
+    --name product-service \
+    --image UbuntuLTS \
+    --admin-username ubuntu \
+    --ssh-key-value azure.pem.pub
+
+# add a separate disk for data 
+az vm disk attach \
+    --resource-group template \
+    --vm-name product-service \
+    --disk data-disk \
+    --sku Premium_LRS \
+    --new
+
+# then u have to Mount the data-disk to be able to use
+
+# open ports
+az vm open-port --port 8080 --resource-group template --name product-service
+
+# you can use cloud-init or below run-command
+# use `sudo find / -name git-sandbox` for git-sandbox path. 
+# for run-command:
+#    - this run-command method works well in `az vm create`, 
+#      but not works as expected in `az vmss create` (produces folder permission error)
+#    - the other issue is, you have to start your script at boot !
+# so, cloud-init is much less time consuming. That's why i switched.
+# The other option is, (if your images are less and not changing to much)
+#    - automatically prepare less changing parts
+#    - and, manually prepare more changing parts of your image such as `git clone` and `./gradlew bootRun` parts.
+#    - you have to start your script at boot !
+# /var/lib/waagent/run-command/download/0/git-sandbox
+az vm run-command invoke \
+    -g template \
+    -n product-service \
+    --command-id RunShellScript --scripts "sudo apt update && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cd git-sandbox && ./gradlew bootRun"
+
+
+# test rest-api
+curl `az vm show -d -g template -n product-service --query publicIps -o tsv`:8080
+
+#connect to instance
+#enter .pem file password 
+#ssh -i .pem ADMIN_USER_NAME@PUBLIC_IP
+# ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
