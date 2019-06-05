@@ -30,7 +30,7 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
 
 ## For a winning strategy
 
-an organization should, at least, dockerize their new applications and use **Kubernates** for cluster management, instead of IaaS arcitecture.
+an organization should, at least, dockerize their new applications and use **Kubernetes** for cluster management, instead of IaaS arcitecture.
 
 - Then, later you can give them serverless capability.
 - Then, you can dockerize old legacy applications, and go on.
