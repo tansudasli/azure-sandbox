@@ -23,3 +23,6 @@ az network lb rule create \
   --frontend-ip-name loadBalancerFrontEnd \
   --frontend-port 8080 \
   --protocol tcp
+
+# how to find ssh ports when we using --ssh-key-value
+# in `az vmss`, 22 is not used for ssh !
