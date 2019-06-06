@@ -38,5 +38,5 @@ az vm open-port --port 8080 --resource-group $resource_group --name $server_name
 ip_addr=$(az vm show -d -g $resource_group -n $server_name --query publicIps -o tsv)
 echo $ip_addr
 
-# curl $ip_addr:8080
+curl $ip_addr:8080
 
