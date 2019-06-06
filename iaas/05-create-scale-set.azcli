@@ -17,6 +17,7 @@ az vmss create \
   --load-balancer $server_name \
   --nsg /subscriptions/8ab2485a-96e1-4b00-89d4-5b910db4391c/resourceGroups/template/providers/Microsoft.Network/networkSecurityGroups/product-serviceNSG  #product-serviceNSG
 
+
 #distribute traffic in lb
 az network lb rule create \
   --resource-group $resource_group \
@@ -30,3 +31,13 @@ az network lb rule create \
 
 # how to find ssh ports when we using --ssh-key-value
 # in `az vmss`, 22 is not used for ssh !
+az vmss list-instance-connection-info -g $resource_group -n $server_name
+
+echo "use that IP and ports to ssh:"
+# ssh -i azure.pem ubuntu@PUBLIC_IP -p 50004"
+
+# use below coammand to start rest-app manually
+# nohup ./gradlew bootRun &
+
+# scale
+# az vmss scale --new-capacity 6 -g api -n $server_name
