@@ -1,7 +1,10 @@
 # availability sets for HA w/ physical server etc.
 # vm cannot add into an availability-set later! So you have to create that vm again w/ avalilability-set
+server_name='product-service'
+resource_group='api'
+
 az vm availability-set create \
-    --resource-group api \
-    --name product-service \
+    --resource-group $resource_group \
+    --name $server_name \
     --platform-fault-domain-count 2 \
     --platform-update-domain-count 2
