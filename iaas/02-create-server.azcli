@@ -41,7 +41,7 @@ az vm open-port --port 8080 --resource-group $resource_group --name $server_name
 az vm run-command invoke \
     -g $resource_group \
     -n $server_name \
-    --command-id RunShellScript --scripts "sudo apt update && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cp -R ./git-sandbox /home/ubuntu/ && chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox"
+    --command-id RunShellScript --scripts "sudo apt-get update && sudo apt-get install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cp -R ./git-sandbox /home/ubuntu/ && chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox"
 
 
 # test rest-api
