@@ -1,0 +1,32 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+write_files:
+ - path: /lib/systemd/system/product-service.service
+   content: |
+     [Unit]
+     Description=product-service 
+     After=auditd.service
+
+     [Service]
+     User=root
+     TimeoutStartSec=0
+     Type=simple
+     KillMode=process
+     WorkingDirectory=/home/ubuntu/git-sandbox
+     ExecStart=/bin/bash gradlew bootRun
+     Restart=always
+     RestartSec=2
+     LimitNOFILE=5555
+
+     [Install]
+     WantedBy=multi-user.target
+runcmd:
+ - sudo apt-get install -y openjdk-8-jdk
+ - cd /home/ubuntu
+ - git clone https://github.com/tansudasli/git-sandbox.git
+ - chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox
+ - chmod +x /lib/systemd/system/product-service.service
+ - sudo systemctl daemon-reload
+ - sudo systemctl enable product-service.service
+ - sudo systemctl start product-service
