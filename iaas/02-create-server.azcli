@@ -51,4 +51,4 @@ echo $ip_addr
 curl $ip_addr:8080
 
 #connect to instance via ssh -i, and enter .pem file password
-# ssh -i azure.pem ubuntu@$ip_addr
+# ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
