@@ -23,7 +23,7 @@ az vm disk attach \
 az vm open-port --port 8080 --resource-group template --name product-service
 
 # you can use cloud-init or below run-command
-# use `sudo find / -name git-sandbox` for git-sandbox path. 
+# use `sudo find / -name git-sandbox` for git-sandbox path. which is `/var/lib/waagent/run-command/download/0/git-sandbox`
 # for run-command:
 #    - this run-command method works well in `az vm create`, 
 #      but not works as expected in `az vmss create` (produces folder permission error)
@@ -33,11 +33,11 @@ az vm open-port --port 8080 --resource-group template --name product-service
 #    - automatically prepare less changing parts
 #    - and, manually prepare more changing parts of your image such as `git clone` and `./gradlew bootRun` parts.
 #    - you have to start your script at boot !
-# /var/lib/waagent/run-command/download/0/git-sandbox
+# 
 az vm run-command invoke \
     -g template \
     -n product-service \
-    --command-id RunShellScript --scripts "sudo apt update && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cd git-sandbox && ./gradlew bootRun"
+    --command-id RunShellScript --scripts "sudo apt update && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cp -R ./git-sandbox /home/ubuntu/ && chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox && cd /home/ubuntu/git-sandbox && ./gradlew bootRun"
 
 
 # test rest-api
