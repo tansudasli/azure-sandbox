@@ -1,24 +1,28 @@
-
 # scale set and lb which is automatically created
 # --image works w/ standart images. for custom images, you need image-id !
+server_name='product-service'
+resource_group='api'
+image_name='product-service-image'
+image_id=$(az image show  -g template -n $image_name --query id  -o tsv)
+
 az vmss create \
-  --resource-group api \
-  --name product-service \
-  --image `az image show  -g template -n product-service-image --query id  -o tsv` \
+  --resource-group $resource_group \
+  --name $server_name \
+  --image $image_id \
   --upgrade-policy-mode automatic \
   --admin-username ubuntu \
   --ssh-key-value azure.pem.pub \
-  --backend-pool-name product-service \
+  --backend-pool-name $server_name \
   --instance-count 3 \
-  --load-balancer product-service \
+  --load-balancer $server_name \
   --nsg /subscriptions/8ab2485a-96e1-4b00-89d4-5b910db4391c/resourceGroups/template/providers/Microsoft.Network/networkSecurityGroups/product-serviceNSG  #product-serviceNSG
 
 #distribute traffic in lb
 az network lb rule create \
-  --resource-group api \
-  --name product-service \
-  --lb-name product-service \
-  --backend-pool-name product-service \
+  --resource-group $resource_group \
+  --name $server_name \
+  --lb-name $server_name \
+  --backend-pool-name $server_name \
   --backend-port 8080 \
   --frontend-ip-name loadBalancerFrontEnd \
   --frontend-port 8080 \

@@ -41,14 +41,15 @@ az vm open-port --port 8080 --resource-group $resource_group --name $server_name
 az vm run-command invoke \
     -g $resource_group \
     -n $server_name \
-    --command-id RunShellScript --scripts "sudo apt update && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cp -R ./git-sandbox /home/ubuntu/ && chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox && cd /home/ubuntu/git-sandbox && ./gradlew bootRun"
+    --command-id RunShellScript --scripts "sudo apt update 
+    && sudo apt install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cp -R ./git-sandbox /home/ubuntu/ && chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox "
 
 
 # test rest-api
+# first ssh to server, w/--> ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
+# then run, w/--> cd /home/ubuntu/git-sandbox && ./gradlew bootRun
 ip_addr=$(az vm show -d -g $resource_group -n $server_name --query publicIps -o tsv)
 echo $ip_addr
 
 curl $ip_addr:8080
 
-#connect to instance via ssh -i, and enter .pem file password
-# ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
