@@ -1,6 +1,10 @@
 # prepare template server which contains
 # ubuntuserver + jdk8 + spring-rest-api app
 
+# so, cloud-init is much less time consuming compared to above option!. That's why i switched.
+#    - runs w/ root user. clones under `/`
+#    - and, you have to start your script at boot !
+
 server_name='product-service'
 resource_group='template'
 
@@ -9,7 +13,8 @@ az vm create \
     --name $server_name \
     --image UbuntuLTS \
     --admin-username ubuntu \
-    --ssh-key-value azure.pem.pub
+    --ssh-key-value azure.pem.pub \
+    --custom-data cloud-init.txt
 
 # add a separate disk for data 
 # you get a correlation error, if you run this script more than one. So, clear `--new` or change `--disk` name
@@ -25,23 +30,6 @@ az vm create \
 
 # open ports
 az vm open-port --port 8080 --resource-group $resource_group --name $server_name
-
-# you can use cloud-init or below run-command
-# use `sudo find / -name git-sandbox` for git-sandbox path. which is `/var/lib/waagent/run-command/download/0/git-sandbox`
-# for run-command:
-#    - this run-command method works well in `az vm create`, 
-#      but not works as expected in `az vmss create` (produces folder permission error)
-#    - the other issue is, you have to start your script at boot !
-# so, cloud-init is much less time consuming. That's why i switched.
-# The other option is, (if your images are less and not changing to much)
-#    - automatically prepare less changing parts
-#    - and, manually prepare more changing parts of your image such as `git clone` and `./gradlew bootRun` parts.
-#    - you have to start your script at boot !
-# 
-az vm run-command invoke \
-    -g $resource_group \
-    -n $server_name \
-    --command-id RunShellScript --scripts "sudo apt-get update && sudo apt-get install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cp -R ./git-sandbox /home/ubuntu/ && chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox"
 
 
 # test rest-api
