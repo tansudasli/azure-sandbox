@@ -1,0 +1,54 @@
+# prepare template server which contains
+# ubuntuserver + jdk8 + spring-rest-api app
+
+server_name='product-service'
+resource_group='template'
+
+az vm create \
+    --resource-group $resource_group \
+    --name $server_name \
+    --image UbuntuLTS \
+    --admin-username ubuntu \
+    --ssh-key-value azure.pem.pub
+
+# add a separate disk for data 
+# you get a correlation error, if you run this script more than one. So, clear `--new` or change `--disk` name
+# az disk list -g template --query '[].creationData.imageReference.id' -o tsv
+# az vm disk attach \
+#     --resource-group $resource_group \
+#     --vm-name $server_name \
+#     --disk data-disk \
+#     --sku Premium_LRS \
+#     --new
+
+# then u have to format and mount the data-disk to be able to use !!
+
+# open ports
+az vm open-port --port 8080 --resource-group $resource_group --name $server_name
+
+# you can use cloud-init file or `az vm run-command invoke`
+# use `sudo find / -name git-sandbox` for git-sandbox path. which is 
+# for run-command:
+#    - runs w/ WALA agent. clones under `/var/lib/waagent/run-command/download/0/git-sandbox`
+#    - and, you have to start your script at boot !
+
+az vm run-command invoke \
+    -g $resource_group \
+    -n $server_name \
+    --command-id RunShellScript --scripts "sudo apt-get update && sudo apt-get install -y openjdk-8-jdk && git clone https://github.com/tansudasli/git-sandbox.git && cp -R ./git-sandbox /home/ubuntu/ && chown -R ubuntu:ubuntu /home/ubuntu/git-sandbox"
+
+
+# so, cloud-init is much less time consuming compared to above option!. 
+#    -- runs w/ root user. clones under `/`
+# 
+
+
+
+# test rest-api
+# first ssh to server, w/--> ssh -i azure.pem ubuntu@`az vm show -d -g template -n product-service --query publicIps -o tsv`
+# then run, w/--> cd /home/ubuntu/git-sandbox && ./gradlew bootRun
+ip_addr=$(az vm show -d -g $resource_group -n $server_name --query publicIps -o tsv)
+echo $ip_addr
+
+# curl $ip_addr:8080
+
