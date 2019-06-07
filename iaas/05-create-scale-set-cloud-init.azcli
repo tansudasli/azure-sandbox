@@ -63,4 +63,6 @@ echo "use above IP and ports to ssh:"
 # ssh -i azure.pem ubuntu@PUBLIC_IP -p 50004"
 
 # scale
-# az vmss scale --new-capacity 6 -g api -n $server_name
+# az vmss scale --new-capacity 6 -g $resource_group -n $server_name
+
+# when you scale, new servers return "Empty reply from server" until everything gets up!
