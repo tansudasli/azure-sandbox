@@ -1,6 +1,6 @@
 # scale set and lb which is automatically created
 # --image works w/ standart images. for custom images, you need image-id !
-server_name='ads-service-xyz'
+server_name='product-service'
 resource_group='api'
 # image_name='product-service-image'
 # image_id=$(az image show  -g template -n $image_name --query id  -o tsv)
