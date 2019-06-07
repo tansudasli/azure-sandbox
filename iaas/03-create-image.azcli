@@ -2,13 +2,11 @@
 server_name='product-service'
 resource_group='template'
 
-# now we can stop, template vm
-az vm stop -g template -n $server_name
-
 #
 az vm deallocate -g template -n $server_name
 az vm generalize -g template -n $server_name
 
+#create image from VM, os-disk, snapshot etc. 
 az image create \
     -g $resource_group \
     -n product-service-image \

@@ -14,7 +14,7 @@ az vm create \
     --image UbuntuLTS \
     --admin-username ubuntu \
     --ssh-key-value azure.pem.pub \
-    --custom-data cloud-init.txt
+    --custom-data iaas/cloud-init.txt
 
 # add a separate disk for data 
 # you get a correlation error, if you run this script more than one. So, clear `--new` or change `--disk` name
@@ -38,5 +38,10 @@ az vm open-port --port 8080 --resource-group $resource_group --name $server_name
 ip_addr=$(az vm show -d -g $resource_group -n $server_name --query publicIps -o tsv)
 echo $ip_addr
 
-curl $ip_addr:8080
+# WAIT then test with curl command or web browser
+# curl $ip_addr:8080
+
+
+# for logs, after ssh 
+# cat /var/log/cloud-init-output.log | grep git-sandbox 
 

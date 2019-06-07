@@ -1,6 +1,6 @@
-az group delete --name template --yes 
 az group delete --name api --yes       
 az group delete --name web --yes 
 az group delete --name analytics  --yes
 az group delete --name db  --yes 
 az group delete --name cache  --yes
+az group delete --name template --yes 

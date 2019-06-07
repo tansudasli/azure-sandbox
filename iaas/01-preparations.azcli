@@ -1,5 +1,3 @@
-# delete all resources
-
 az group create --name template --location northeurope
 az group create --name api --location northeurope
 az group create --name web --location northeurope
