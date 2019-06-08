@@ -27,9 +27,13 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
      - scalable from VM image, run `./iaas/01-preparations.azcli && ./iaas/02-create-server.azcli && ./iaas/03-create-image.azcli && ./iaas/05-create-scale-set.azcli`
      - scalable w/ cloud-init, run `./iaas/01-preparations.azcli && ./iaas/05-create-scale-set-cloud-init.azcli`
 
-## High Level Architecture - IaaS
+## High Level Architecture - IaaS > scalable
 
-![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas/Azure%20Architecture.png)
+![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas/AzureArchitecture1.png)
+
+## High Level Architecture - IaaS > scalable > production ready
+
+![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas/AzureArchitecture2.png)
 
 ## For a winning strategy
 
