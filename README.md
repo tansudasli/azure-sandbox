@@ -36,7 +36,6 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
 
 ![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas-prod-ready/Azure-Architecture-2.png)
 
-
 ## For a winning strategy
 
 an organization should, at least, dockerize their new applications and use **Kubernetes** for cluster management, instead of IaaS arcitecture.
