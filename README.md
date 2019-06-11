@@ -26,15 +26,16 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
      - standalone, run `./iaas/01-preparations.azcli && ./iaas/02-create-server.azcli`
      - scalable from VM image, run `./iaas/01-preparations.azcli && ./iaas/02-create-server.azcli && ./iaas/03-create-image.azcli && ./iaas/05-create-scale-set.azcli`
      - scalable w/ cloud-init, run `./iaas/01-preparations.azcli && ./iaas/05-create-scale-set-cloud-init.azcli`
-   - for **IaaS best practises** use resource manager templates under `/iaas-prod-ready` folder
+   - for **IaaS best practise** use resource manager templates under `/iaas-prod-ready` folder
 
-## High Level Architecture - IaaS > scalable
+## High Level Architecture - IaaS > best practice
 
-![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas/Azure-Architecture-1.png)
+![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas-prod-ready/Azure-Architecture-1.png)
 
 ## High Level Architecture - IaaS > scalable > production ready
 
-![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas/Azure-Architecture-2.png)
+![for IaaS](https://github.com/tansudasli/azure-sandbox/blob/master/iaas-prod-ready/Azure-Architecture-2.png)
+
 
 ## For a winning strategy
 
