@@ -5,4 +5,4 @@ az group create --name analytics --location northeurope
 az group create --name db --location northeurope
 az group create --name cache --location northeurope
 
-#TODO: add virtual network configs and nsd rules etc
+#TODO: add virtual network configs and nsg rules etc
