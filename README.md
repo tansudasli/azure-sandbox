@@ -22,10 +22,11 @@ Architectural approaches to core cloud concepts in azure. For the sake of cleari
    - `ssh-keygen -f ~/azure.pem`
    - `cp ~/azure.* .`
 6. to get into action
-   - for **IaaS**
+   - for **IaaS** core concepts
      - standalone, run `./iaas/01-preparations.azcli && ./iaas/02-create-server.azcli`
      - scalable from VM image, run `./iaas/01-preparations.azcli && ./iaas/02-create-server.azcli && ./iaas/03-create-image.azcli && ./iaas/05-create-scale-set.azcli`
      - scalable w/ cloud-init, run `./iaas/01-preparations.azcli && ./iaas/05-create-scale-set-cloud-init.azcli`
+   - for **IaaS best practises** use resource manager templates under `/iaas-prod-ready` folder
 
 ## High Level Architecture - IaaS > scalable
 
