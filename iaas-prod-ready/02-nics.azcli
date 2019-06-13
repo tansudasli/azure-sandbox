@@ -1,0 +1,55 @@
+#app service domain
+# when you buy a domain over azure. it creates an app service domain and dnz zone automatically.
+# if you buy your domain in another place, just define your domain zone !
+
+#dns zone
+zoneName=ranknar.com
+suffix=web
+
+
+
+# az network dns zone create --name web        #web.xyz.io
+#                            --resource-group root
+
+
+
+
+#public ip address
+publicIpSKU=Standart
+az network public-ip create --name www
+                            --resource-group network
+                            --sku $publicIpSKU
+                            --version IPv4
+                            # [--allocation-method {Dynamic, Static}]
+                            # [--dns-name]   #registered in A record
+                            # [--public-ip-prefix]
+                            # [--reverse-fqdn]
+                            # [--subscription]
+                            # [--tags]
+                            # [--zone {1, 2, 3}]
+
+ipAddress=$(az network public-ip list --query '[].ipAddress' -o tsv)
+
+# create your A (alias) record sets
+az network dns record-set a add-record --ipv4-address $ipAddress
+                                       --record-set-name www
+                                       --resource-group network
+                                       --zone-name $zoneName
+
+
+# assign public-ip to lb or nic (after lb created!!!)
+
+#lb 
+az network lb create --name web
+                     --resource-group network
+                     --backend-pool-name www     #www, cms, blog, app etc.
+                     --frontend-ip-name lbfrontend
+                     --public-ip-address www
+                     --sku $publicIpSKU
+                     --vnet-name vpn-prod
+                    #  [--public-ip-dns-name]
+
+
+# add more backendpols 
+
+# vm or vmss

@@ -1,6 +1,67 @@
-az group create --name template --location northeurope
-az group create --name api --location northeurope
-az group create --name web --location northeurope
-az group create --name analytics --location northeurope
-az group create --name db --location northeurope
-az group create --name cache --location northeurope
+#reasource groups
+for name in template network jumpbox web api backend cache analytics
+do
+    az group create --name $name --location westeurope
+done
+
+# create network backbone
+
+subscription=$(az account list --query "[?isDefault].name" -o tsv)
+
+
+jumpboxRange=10.0.2.0/24
+webRange=10.0.3.0/24
+apiRange=10.0.4.0/24
+backendRange=10.0.5.0/24
+
+az network vnet create --name vpn-prod \
+                       --resource-group network \
+                       --address-prefixes 10.0.0.0/16 \
+                       --location westeurope \
+                       --subnet-name default \
+                       --subnet-prefixes 10.0.1.0/24 \
+                       --vm-protection false
+                       --subscription $subscription
+                    #    [--tags]
+                    #    [--dns-servers]
+
+for name in jumpbox web api backend
+do
+range=${name}Range
+echo $range
+echo ${!range}
+    az network vnet subnet create --address-prefixes ${!range} \
+                                --name $name \
+                                --resource-group network \
+                                --vnet-name vpn-prod
+                                # [--nat-gateway]
+                                # [--network-security-group]
+                                # [--route-table]
+done
+
+
+for name in web api backend
+do
+echo ${name}-01
+
+    az network nic create --name ${name}-01 \
+                        --resource-group network \
+                        --subnet $name \
+                        --subscription "$subscription" \
+                        --vnet-name vpn-prod
+                        # [--app-gateway-address-pools]
+                        # [--application-security-groups]
+                        # [--dns-servers]
+                        # [--gateway-name]
+                        # [--internal-dns-name]
+                        # [--ip-forwarding {false, true}]
+                        # [--lb-address-pools]
+                        # [--lb-inbound-nat-rules]
+                        # [--lb-name]
+                        # [--location]
+                        # [--network-security-group]
+                        # [--public-ip-address]
+                        # [--tags]
+
+done
+
